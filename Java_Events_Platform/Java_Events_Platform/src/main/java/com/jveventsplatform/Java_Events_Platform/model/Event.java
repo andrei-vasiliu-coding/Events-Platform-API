@@ -48,7 +48,7 @@ public class Event {
     private Type type;
 
     @NotNull(message = "Location is required")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 

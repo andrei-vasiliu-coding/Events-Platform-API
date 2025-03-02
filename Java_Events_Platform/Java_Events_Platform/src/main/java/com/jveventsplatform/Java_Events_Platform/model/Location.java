@@ -49,7 +49,7 @@ public class Location {
     @Schema(description = "Postcode of the event", example = "M3 1AR", minLength = 1, maxLength = 7)
     private String postcode;
 
-    @OneToOne
+    @OneToOne(mappedBy = "location")
     @JsonBackReference
     @Schema(hidden = true)
     private Event event;
