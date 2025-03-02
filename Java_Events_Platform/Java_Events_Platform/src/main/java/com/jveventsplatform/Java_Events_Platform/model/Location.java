@@ -41,5 +41,4 @@ public class Location {
     @Schema(description = "Postcode of the event", example = "M3 1AR", minLength = 1, maxLength = 7)
     private String postcode;
 
-    //Another @ for backreferencing?
 }

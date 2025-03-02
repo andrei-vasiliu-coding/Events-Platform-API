@@ -50,4 +50,6 @@ public class Event {
     @Column
     @Schema(description = "The price of an event")
     private int price;
+
+
 }
