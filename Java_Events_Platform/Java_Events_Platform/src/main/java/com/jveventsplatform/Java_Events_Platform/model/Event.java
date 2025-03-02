@@ -1,6 +1,7 @@
 package com.jveventsplatform.Java_Events_Platform.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -50,6 +51,5 @@ public class Event {
     @Column
     @Schema(description = "The price of an event")
     private int price;
-
 
 }

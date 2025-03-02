@@ -1,5 +1,7 @@
 package com.jveventsplatform.Java_Events_Platform.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -23,6 +25,12 @@ public class Location {
     @Schema(hidden = true)
     private Long id;
 
+    @NotEmpty(message = "Name is required")
+    @Size(min = 1, max = 50, message = "Name must be between 1 and 50 characters")
+    @Column
+    @Schema(description = "Name of the location", example = "Manchester Arena", minLength = 1, maxLength = 50)
+    private String name;
+
     @NotEmpty(message = "Address is required")
     @Size(min = 1, max = 200, message = "Address must be between 1 and 200 characters")
     @Column
@@ -41,4 +49,8 @@ public class Location {
     @Schema(description = "Postcode of the event", example = "M3 1AR", minLength = 1, maxLength = 7)
     private String postcode;
 
+    @OneToOne
+    @JsonBackReference
+    @Schema(hidden = true)
+    private Event event;
 }
