@@ -41,8 +41,13 @@ public class Event {
     @Schema(description = "Description of the event", example = "Lady Gaga is back in the UK with her recent album breaking the records on Spotify and returning to her most acclaimed era!", maxLength = 1000)
     private String description;
 
+    @NotEmpty(message = "Location is required")
+    @OneToOne
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private Location location;
+
     @NotNull(message = "Event price is required")
     @Column
-    @Schema(description = "")
+    @Schema(description = "The price of an event")
     private int price;
 }
