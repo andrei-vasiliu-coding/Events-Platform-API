@@ -12,6 +12,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -47,5 +49,5 @@ public class Organiser {
     @OneToMany(mappedBy = "organiser", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JsonManagedReference
     @Schema(hidden = true)
-    private Event event;
+    private List<Event> event;
 }

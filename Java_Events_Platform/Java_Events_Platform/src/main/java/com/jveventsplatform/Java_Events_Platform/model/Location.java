@@ -12,6 +12,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -53,5 +55,5 @@ public class Location {
     @OneToMany(mappedBy = "location", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JsonManagedReference
     @Schema(hidden = true)
-    private Event event;
+    private List<Event> events;
 }
