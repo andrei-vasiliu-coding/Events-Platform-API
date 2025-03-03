@@ -1,5 +1,6 @@
 package com.jveventsplatform.Java_Events_Platform.service;
 
+import com.jveventsplatform.Java_Events_Platform.exception.ItemNotFoundException;
 import com.jveventsplatform.Java_Events_Platform.model.Event;
 import com.jveventsplatform.Java_Events_Platform.model.Location;
 import com.jveventsplatform.Java_Events_Platform.model.Organiser;
@@ -38,7 +39,7 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public Event putEvent(Event event) {
         if (!eventRepository.existsById(event.getId())) {
-            throw new EntityNotFoundException("Event with id " + event.getId() + " not found");
+            throw new ItemNotFoundException("Event with id " + event.getId() + " not found");
         }
         return eventRepository.save(event);
     }
@@ -52,7 +53,7 @@ public class EventServiceImpl implements EventService {
 
         Optional<Event> existingOpt = eventRepository.findById(event.getId());
         if (existingOpt.isEmpty()) {
-            throw new EntityNotFoundException("Event with ID " + event.getId() + " not found.");
+            throw new ItemNotFoundException("Event with ID " + event.getId() + " not found.");
         }
         Event existingEvent = existingOpt.get();
 
@@ -84,7 +85,7 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public void deleteEventById(Long id) {
         if (!eventRepository.existsById(id)) {
-            throw new EntityNotFoundException("Event with ID " + id + " not found");
+            throw new ItemNotFoundException("Event with ID " + id + " not found");
         }
         eventRepository.deleteById(id);
     }
