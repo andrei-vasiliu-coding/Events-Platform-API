@@ -14,17 +14,17 @@ public class LocationServiceImpl implements LocationService {
     LocationRepository locationRepository;
 
     @Override
-    public List<Location> findByName(String name) {
-        return List.of();
+    public List<Location> getLocationsByName(String name) {
+        return locationRepository.findByName(name);
     }
 
     @Override
-    public List<Location> findByCity(String city) {
-        return List.of();
+    public List<Location> getLocationsByCity(String city) {
+        return locationRepository.findByCity(city);
     }
 
     @Override
-    public List<Location> findByPostcode(String postcode) {
-        return List.of();
+    public List<Location> getLocationsByPostcode(String postcode) {
+        return locationRepository.findByPostcode(postcode);
     }
 }

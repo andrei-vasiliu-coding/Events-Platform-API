@@ -8,4 +8,7 @@ import java.util.List;
 
 @Repository
 public interface LocationRepository extends CrudRepository<Location, Long> {
+    List<Location> findByName(String name);
+    List<Location> findByCity(String city);
+    List<Location> findByPostcode(String postcode);
 }

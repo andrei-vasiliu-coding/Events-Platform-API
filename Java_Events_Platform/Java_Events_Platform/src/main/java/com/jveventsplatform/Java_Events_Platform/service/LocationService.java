@@ -5,7 +5,7 @@ import com.jveventsplatform.Java_Events_Platform.model.Location;
 import java.util.List;
 
 public interface LocationService {
-    List<Location> findByName(String name);
-    List<Location> findByCity(String city);
-    List<Location> findByPostcode(String postcode);
+    List<Location> getLocationsByName(String name);
+    List<Location> getLocationsByCity(String city);
+    List<Location> getLocationsByPostcode(String postcode);
 }
