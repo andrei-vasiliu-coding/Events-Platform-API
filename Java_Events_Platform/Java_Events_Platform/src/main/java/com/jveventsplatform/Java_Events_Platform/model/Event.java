@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @NoArgsConstructor
@@ -31,6 +32,16 @@ public class Event {
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Schema(description = "Date when the event takes place", example = "01-07-2025")
     private LocalDate eventDate;
+
+    @NotNull(message = "Start time is required")
+    @JsonFormat(pattern = "HH:mm")
+    @Schema(description = "Start time of the event", example = "19:00")
+    private LocalTime startTime;
+
+    @NotNull(message = "End time is required")
+    @JsonFormat(pattern = "HH:mm")
+    @Schema(description = "End time of the event", example = "23:00")
+    private LocalTime endTime;
 
     @NotBlank(message = "Title is required")
     @Size(min = 5, max = 100, message = "Title must be between 5 and 100 characters")
