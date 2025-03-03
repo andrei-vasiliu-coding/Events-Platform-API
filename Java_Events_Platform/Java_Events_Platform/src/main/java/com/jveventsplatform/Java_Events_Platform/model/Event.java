@@ -1,5 +1,6 @@
 package com.jveventsplatform.Java_Events_Platform.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -63,7 +64,7 @@ public class Event {
     private Type type;
 
     @NotNull(message = "Location is required")
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     @Getter
     private Location location;
@@ -75,8 +76,9 @@ public class Event {
     private String price;
 
     @NotNull(message = "Organiser information required")
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "organiser_id", referencedColumnName = "id")
+    @JsonBackReference
     @Getter
     private Organiser organiser;
 }

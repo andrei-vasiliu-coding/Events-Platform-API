@@ -50,8 +50,8 @@ public class Location {
     @Schema(description = "Postcode of the event", example = "M3 1AR", minLength = 1, maxLength = 7)
     private String postcode;
 
-    @OneToOne(mappedBy = "location")
-    @JsonBackReference
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
+    @JsonManagedReference
     @Schema(hidden = true)
     private Event event;
 }

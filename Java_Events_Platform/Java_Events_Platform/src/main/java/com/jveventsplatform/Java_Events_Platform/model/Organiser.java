@@ -1,6 +1,7 @@
 package com.jveventsplatform.Java_Events_Platform.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -43,8 +44,8 @@ public class Organiser {
     @Schema(description = "Organiser's phone number", example = "01619505229", minLength = 9, maxLength = 15)
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "organiser")
-    @JsonBackReference
+    @OneToMany(mappedBy = "organiser")
+    @JsonManagedReference
     @Schema(hidden = true)
     private Event event;
 }
