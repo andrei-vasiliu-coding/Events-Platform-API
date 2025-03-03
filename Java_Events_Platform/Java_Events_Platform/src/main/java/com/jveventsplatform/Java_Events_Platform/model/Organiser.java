@@ -44,7 +44,7 @@ public class Organiser {
     @Schema(description = "Organiser's phone number", example = "01619505229", minLength = 9, maxLength = 15)
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "organiser")
+    @OneToMany(mappedBy = "organiser", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JsonManagedReference
     @Schema(hidden = true)
     private Event event;

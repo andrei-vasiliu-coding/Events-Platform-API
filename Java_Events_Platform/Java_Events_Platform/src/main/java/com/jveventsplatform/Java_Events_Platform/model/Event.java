@@ -64,7 +64,7 @@ public class Event {
     private Type type;
 
     @NotNull(message = "Location is required")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     @Getter
     private Location location;
@@ -76,7 +76,7 @@ public class Event {
     private String price;
 
     @NotNull(message = "Organiser information required")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "organiser_id", referencedColumnName = "id")
     @JsonBackReference
     @Getter
