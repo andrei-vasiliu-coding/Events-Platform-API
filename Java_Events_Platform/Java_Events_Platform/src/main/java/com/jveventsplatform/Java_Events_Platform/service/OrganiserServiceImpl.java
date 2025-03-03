@@ -1,8 +1,10 @@
 package com.jveventsplatform.Java_Events_Platform.service;
 
+import com.jveventsplatform.Java_Events_Platform.exception.ItemNotFoundException;
 import com.jveventsplatform.Java_Events_Platform.model.Organiser;
 import com.jveventsplatform.Java_Events_Platform.repository.OrganiserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -10,6 +12,13 @@ public class OrganiserServiceImpl implements OrganiserService {
 
     @Autowired
     OrganiserRepository organiserRepository;
+
+    @Override
+    @Transactional(readOnly = true)
+    public Organiser getOrganiserById(Long id) {
+        return organiserRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("Organiser with ID " + id + " not found"));
+    }
 
     @Override
     public List<Organiser> getOrganiserByName(String name) {
