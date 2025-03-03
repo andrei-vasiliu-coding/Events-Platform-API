@@ -66,6 +66,10 @@ public class Event {
     @NotNull(message = "Event price is required")
     @Column
     @Schema(description = "The price of an event")
-    private int price;
+    private String price;
 
+    @NotNull(message = "Organiser information required")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "organiser_id", referencedColumnName = "id")
+    private Organiser organiser;
 }
