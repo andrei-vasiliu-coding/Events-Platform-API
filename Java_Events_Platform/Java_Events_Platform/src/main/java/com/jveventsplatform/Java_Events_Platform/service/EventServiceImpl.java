@@ -6,7 +6,7 @@ import com.jveventsplatform.Java_Events_Platform.model.Location;
 import com.jveventsplatform.Java_Events_Platform.model.Organiser;
 import com.jveventsplatform.Java_Events_Platform.model.Type;
 import com.jveventsplatform.Java_Events_Platform.repository.EventRepository;
-import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EventServiceImpl implements EventService {
 
     @Autowired
@@ -78,6 +79,12 @@ public class EventServiceImpl implements EventService {
         if (event.getOrganiser() != null) {
             existingEvent.setOrganiser(event.getOrganiser());
         }
+        if (event.getDescription() != null) {
+            existingEvent.setDescription(event.getDescription());
+        }
+        if (event.getEndTime() != null) {
+            existingEvent.setEndTime(event.getEndTime());
+        }
         return eventRepository.save(existingEvent);
     }
 
@@ -98,8 +105,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Event> getEventsByDate(LocalDate eventDate) {
-        return eventRepository.findByDate(eventDate);
+    public List<Event> getEventsByEventDate(LocalDate eventDate) {
+        return eventRepository.findByEventDate(eventDate);
     }
 
     @Override

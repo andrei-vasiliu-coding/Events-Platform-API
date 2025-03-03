@@ -17,7 +17,7 @@ public interface EventService {
     void deleteEventById(Long id);
 
     List<Event> getEventsByTitle(String title);
-    List<Event> getEventsByDate(LocalDate eventDate);
+    List<Event> getEventsByEventDate(LocalDate eventDate);
     List<Event> getEventsByStartTime(LocalTime startTime);
     List<Event> getEventsByType(Type type);
     List<Event> getEventsByPrice(String price);

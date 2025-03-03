@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface EventRepository extends CrudRepository<Event, Long> {
     List<Event> findByTitle(String title);
-    List<Event> findByDate(LocalDate eventDate);
+    List<Event> findByEventDate(LocalDate eventDate);
     List<Event> findByStartTime(LocalTime startTime);
     List<Event> findByType(Type type);
     List<Event> findByPrice(String price);

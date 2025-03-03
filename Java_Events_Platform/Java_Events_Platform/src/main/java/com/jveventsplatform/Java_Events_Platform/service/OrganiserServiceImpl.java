@@ -4,10 +4,12 @@ import com.jveventsplatform.Java_Events_Platform.exception.ItemNotFoundException
 import com.jveventsplatform.Java_Events_Platform.model.Organiser;
 import com.jveventsplatform.Java_Events_Platform.repository.OrganiserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class OrganiserServiceImpl implements OrganiserService {
 
     @Autowired

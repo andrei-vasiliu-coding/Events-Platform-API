@@ -1,6 +1,5 @@
 package com.jveventsplatform.Java_Events_Platform.controller;
 
-import com.jveventsplatform.Java_Events_Platform.exception.ItemNotFoundException;
 import com.jveventsplatform.Java_Events_Platform.model.Event;
 import com.jveventsplatform.Java_Events_Platform.model.Location;
 import com.jveventsplatform.Java_Events_Platform.model.Organiser;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -39,25 +37,25 @@ public class EventController {
         return new ResponseEntity<>(eventService.getAllEvents(), HttpStatus.OK);
     }
 
-    @PostMapping("/event")
+    @PostMapping("/events")
     public ResponseEntity<Event> postEvent(@RequestBody Event event) {
         Event postEvent = eventService.postEvent(event);
         return new ResponseEntity<>(postEvent, HttpStatus.CREATED);
     }
 
-    @PutMapping("/event")
+    @PutMapping("/events")
     public ResponseEntity<Event> putEvent(@RequestBody Event event) {
         Event putEvent = eventService.putEvent(event);
         return new ResponseEntity<>(putEvent, HttpStatus.OK);
     }
 
-    @PatchMapping("/event")
+    @PatchMapping("/events")
     public ResponseEntity<Event> patchEvent(@RequestBody Event event) {
         Event patchedEvent = eventService.patchEvent(event);
         return new ResponseEntity<>(patchedEvent, HttpStatus.OK);
     }
 
-    @DeleteMapping("/event/{id}")
+    @DeleteMapping("/events/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         eventService.deleteEventById(id);
         return ResponseEntity.noContent().build();
@@ -70,8 +68,8 @@ public class EventController {
     }
 
     @GetMapping("/events/date")
-    public ResponseEntity<List<Event>> getEventsByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate eventDate) {
-        List<Event> events = eventService.getEventsByDate(eventDate);
+    public ResponseEntity<List<Event>> getEventsByEventDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate eventDate) {
+        List<Event> events = eventService.getEventsByEventDate(eventDate);
         return ResponseEntity.ok(events);
     }
 
