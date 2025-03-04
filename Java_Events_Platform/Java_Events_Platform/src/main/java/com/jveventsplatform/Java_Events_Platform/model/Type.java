@@ -1,5 +1,6 @@
 package com.jveventsplatform.Java_Events_Platform.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Type {
@@ -17,4 +18,14 @@ public enum Type {
 
     @JsonValue
     public String getTypeDescriptor() { return typeDescriptor; }
+
+    @JsonCreator
+    public static Type fromValue(String value) {
+        for (Type type : Type.values()) {
+            if (type.typeDescriptor.equalsIgnoreCase(value)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("Invalid event type: " + value);
+    }
 }
