@@ -1,7 +1,9 @@
 package com.jveventsplatform.Java_Events_Platform.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +16,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Data
 @NoArgsConstructor
@@ -53,7 +56,7 @@ public class Location {
     private String postcode;
 
     @OneToMany(mappedBy = "location", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JsonManagedReference
+    //@JsonManagedReference(value = "locationReference")
     @Schema(hidden = true)
     private List<Event> events;
 }

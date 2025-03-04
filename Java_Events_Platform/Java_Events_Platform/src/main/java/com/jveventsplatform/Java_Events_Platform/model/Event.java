@@ -1,8 +1,6 @@
 package com.jveventsplatform.Java_Events_Platform.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -11,6 +9,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -63,22 +62,23 @@ public class Event {
     @Getter
     private Type type;
 
-    @NotNull(message = "Location is required")
-    @ManyToOne
-    @JoinColumn(name = "location_id", referencedColumnName = "id")
-    @Getter
-    private Location location;
-
     @NotNull(message = "Event price is required")
     @Column
     @Schema(description = "The price of an event")
     @Getter
     private String price;
 
+    @NotNull(message = "Location is required")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    //@JsonBackReference(value = "locationReference")
+    @Getter
+    private Location location;
+
     @NotNull(message = "Organiser information required")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "organiser_id", referencedColumnName = "id")
-    @JsonBackReference
+    //@JsonBackReference(value = "organiserReference")
     @Getter
     private Organiser organiser;
 }
