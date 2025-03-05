@@ -68,7 +68,7 @@ public class EventController {
     }
 
     @GetMapping("/events/date")
-    public ResponseEntity<List<Event>> getEventsByEventDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate eventDate) {
+    public ResponseEntity<List<Event>> getEventsByEventDate(@RequestParam("date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate eventDate) {
         List<Event> events = eventService.getEventsByEventDate(eventDate);
         return ResponseEntity.ok(events);
     }
