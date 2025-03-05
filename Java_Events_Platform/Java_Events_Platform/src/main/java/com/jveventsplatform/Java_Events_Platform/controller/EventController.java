@@ -61,10 +61,10 @@ public class EventController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/events/title/{title}")
-    public ResponseEntity<List<Event>> getEventsByTitle(@PathVariable String title) {
+    @GetMapping("/events/title")
+    public ResponseEntity<List<Event>> getEventsByTitle(@RequestParam String title) {
         List<Event> events = eventService.getEventsByTitle(title);
-        return new ResponseEntity<>(events, HttpStatus.OK);
+        return ResponseEntity.ok(events);
     }
 
     @GetMapping("/events/date")
