@@ -117,8 +117,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Event> getEventsByType(Type type) {
-        return eventRepository.findByType(type);
+    public List<Event> getEventsByType(String type) {
+        Type eventType;
+        try {
+            eventType = Type.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ItemNotFoundException("Invalid event type: " + type);
+        }
+        return eventRepository.findByType(eventType);
     }
 
     @Override
@@ -129,13 +135,13 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Event> getEventsByLocation(Location location) {
-        return eventRepository.findByLocation(location);
+    public List<Event> getEventsByLocationName(String locationName) {
+        return eventRepository.findByLocationName(locationName);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Event> getEventsByOrganiser(Organiser organiser) {
-        return eventRepository.findByOrganiser(organiser);
+    public List<Event> getEventsByOrganiserName(String organiserName) {
+        return eventRepository.findByOrganiserName(organiserName);
     }
 }

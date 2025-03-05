@@ -19,8 +19,8 @@ public interface EventService {
     List<Event> getEventsByTitle(String title);
     List<Event> getEventsByEventDate(LocalDate eventDate);
     List<Event> getEventsByStartTime(LocalTime startTime);
-    List<Event> getEventsByType(Type type);
+    List<Event> getEventsByType(String type);
     List<Event> getEventsByPrice(String price);
-    List<Event> getEventsByLocation(Location location);
-    List<Event> getEventsByOrganiser(Organiser organiser);
+    List<Event> getEventsByLocationName(String locationName);
+    List<Event> getEventsByOrganiserName(String organiser);
 }
