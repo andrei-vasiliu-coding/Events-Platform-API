@@ -1,11 +1,10 @@
 package com.jveventsplatform.Java_Events_Platform.service;
 
 import com.jveventsplatform.Java_Events_Platform.exception.ItemNotFoundException;
-import com.jveventsplatform.Java_Events_Platform.model.Event;
-import com.jveventsplatform.Java_Events_Platform.model.Location;
-import com.jveventsplatform.Java_Events_Platform.model.Organiser;
-import com.jveventsplatform.Java_Events_Platform.model.Type;
+import com.jveventsplatform.Java_Events_Platform.model.*;
+import com.jveventsplatform.Java_Events_Platform.repository.EventRegistrationRepository;
 import com.jveventsplatform.Java_Events_Platform.repository.EventRepository;
+import com.jveventsplatform.Java_Events_Platform.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,12 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     EventRepository eventRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    EventRegistrationRepository eventRegistrationRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -117,8 +122,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Event> getEventsByType(Type type) {
-        return eventRepository.findByType(type);
+    public List<Event> getEventsByType(String type) {
+        Type eventType;
+        try {
+            eventType = Type.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ItemNotFoundException("Invalid event type: " + type);
+        }
+        return eventRepository.findByType(eventType);
     }
 
     @Override
@@ -129,13 +140,26 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Event> getEventsByLocation(Location location) {
-        return eventRepository.findByLocation(location);
+    public List<Event> getEventsByLocationName(String locationName) {
+        return eventRepository.findByLocationName(locationName);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Event> getEventsByOrganiser(Organiser organiser) {
-        return eventRepository.findByOrganiser(organiser);
+    public List<Event> getEventsByOrganiserName(String organiserName) {
+        return eventRepository.findByOrganiserName(organiserName);
+    }
+
+    @Override
+    public EventRegistrationId registerUserForEvent(Long userId, Long eventId) {
+        User user = userRepository.getReferenceById(userId);
+        Optional<Event> eventOptional = eventRepository.findById(eventId);
+
+        if (eventOptional.isPresent()) {
+            EventRegistration eventRegistration = new EventRegistration(userId, eventId, user, eventOptional.get());
+            return eventRegistrationRepository.save(eventRegistration).getId();
+        } else {
+            throw new ItemNotFoundException("Cupcakes!!!");
+        }
     }
 }

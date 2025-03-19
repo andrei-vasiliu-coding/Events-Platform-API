@@ -1,9 +1,6 @@
 package com.jveventsplatform.Java_Events_Platform.controller;
 
-import com.jveventsplatform.Java_Events_Platform.model.Event;
-import com.jveventsplatform.Java_Events_Platform.model.Location;
-import com.jveventsplatform.Java_Events_Platform.model.Organiser;
-import com.jveventsplatform.Java_Events_Platform.model.Type;
+import com.jveventsplatform.Java_Events_Platform.model.*;
 import com.jveventsplatform.Java_Events_Platform.service.EventService;
 import com.jveventsplatform.Java_Events_Platform.service.LocationService;
 import com.jveventsplatform.Java_Events_Platform.service.OrganiserService;
@@ -56,9 +53,9 @@ public class EventController {
     }
 
     @DeleteMapping("/events/{id}")
-    public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
+    public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
         eventService.deleteEventById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Event deleted successfully");
     }
 
     @GetMapping("/events/title")
@@ -68,7 +65,7 @@ public class EventController {
     }
 
     @GetMapping("/events/date")
-    public ResponseEntity<List<Event>> getEventsByEventDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate eventDate) {
+    public ResponseEntity<List<Event>> getEventsByEventDate(@RequestParam("date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate eventDate) {
         List<Event> events = eventService.getEventsByEventDate(eventDate);
         return ResponseEntity.ok(events);
     }
@@ -79,8 +76,8 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/events/type/{type}")
-    public ResponseEntity<List<Event>> getEventsByType(@PathVariable("type") Type type) {
+    @GetMapping("/events/type")
+    public ResponseEntity<List<Event>> getEventsByType(@RequestParam("type") String type) {
         List<Event> events = eventService.getEventsByType(type);
         return ResponseEntity.ok(events);
     }
@@ -91,17 +88,21 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/events/location/{id}")
-    public ResponseEntity<List<Event>> getEventsByLocation(@PathVariable("id") Long locationId) {
-        Location location = locationService.getLocationById(locationId);
-        List<Event> events = eventService.getEventsByLocation(location);
+    @GetMapping("/events/location")
+    public ResponseEntity<List<Event>> getEventsByLocationName(@RequestParam("name") String locationName) {
+        List<Event> events = eventService.getEventsByLocationName(locationName);
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/events/organiser/{id}")
-    public ResponseEntity<List<Event>> getEventsByOrganiser(@PathVariable("id") Long organiserId) {
-        Organiser organiser = organiserService.getOrganiserById(organiserId);
-        List<Event> events = eventService.getEventsByOrganiser(organiser);
+    @GetMapping("/events/organiser")
+    public ResponseEntity<List<Event>> getEventsByOrganiserName(@RequestParam("name") String organiserName) {
+        List<Event> events = eventService.getEventsByOrganiserName(organiserName);
         return ResponseEntity.ok(events);
+    }
+
+    @PostMapping("/events/{eventId}")
+    public ResponseEntity<EventRegistrationId> postEventRegistrationForUser(@RequestParam("userId") Long userId, @PathVariable("eventId") Long eventId) {
+        EventRegistrationId eventRegistrationId = eventService.registerUserForEvent(userId, eventId);
+        return ResponseEntity.ok(eventRegistrationId);
     }
 }

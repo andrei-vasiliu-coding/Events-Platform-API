@@ -18,6 +18,6 @@ public interface EventRepository extends CrudRepository<Event, Long> {
     List<Event> findByStartTime(LocalTime startTime);
     List<Event> findByType(Type type);
     List<Event> findByPrice(String price);
-    List<Event> findByLocation(Location location);
-    List<Event> findByOrganiser(Organiser organiser);
+    List<Event> findByLocationName(String name);
+    List<Event> findByOrganiserName(String organiser);
 }

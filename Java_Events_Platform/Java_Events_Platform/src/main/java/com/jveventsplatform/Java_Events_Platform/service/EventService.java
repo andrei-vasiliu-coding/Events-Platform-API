@@ -1,9 +1,6 @@
 package com.jveventsplatform.Java_Events_Platform.service;
 
-import com.jveventsplatform.Java_Events_Platform.model.Event;
-import com.jveventsplatform.Java_Events_Platform.model.Location;
-import com.jveventsplatform.Java_Events_Platform.model.Organiser;
-import com.jveventsplatform.Java_Events_Platform.model.Type;
+import com.jveventsplatform.Java_Events_Platform.model.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,8 +16,10 @@ public interface EventService {
     List<Event> getEventsByTitle(String title);
     List<Event> getEventsByEventDate(LocalDate eventDate);
     List<Event> getEventsByStartTime(LocalTime startTime);
-    List<Event> getEventsByType(Type type);
+    List<Event> getEventsByType(String type);
     List<Event> getEventsByPrice(String price);
-    List<Event> getEventsByLocation(Location location);
-    List<Event> getEventsByOrganiser(Organiser organiser);
+    List<Event> getEventsByLocationName(String locationName);
+    List<Event> getEventsByOrganiserName(String organiser);
+
+    EventRegistrationId registerUserForEvent(Long userId, Long eventId);
 }
