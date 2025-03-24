@@ -93,6 +93,7 @@ Make sure you have the following installed:
    - Deploy the API into a cloud service. Current H2 in-memory database is limited as the data is deleted once the API is terminated.
    - Fix Swagger UI.
    - Implement PostgreSQL.
+   - Finish implementing a table linking user IDs to event registration IDs.
 
 ## 🛢️ Switching to PostgreSQL (Not currently available; planned implementation in the next weeks)
 
