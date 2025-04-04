@@ -3,7 +3,8 @@
 A backend RESTful API for managing events, locations, organisers, and user registrations for an events platform. Built with Java 21, Spring Boot 3, JPA, and H2/PostgreSQL.
 
 ---
-
+Link to the front-end repository: [Java Events Platform UI]https://github.com/andrei-vasiliu-coding/Events-Platform-Android-UI/tree/firebase
+---
 ## 🚀 Features
 
 - CRUD operations for Events, Organisers, Locations, and Event Registrations (only on branch, still in development)
